@@ -3,11 +3,11 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-<meta name="theme-color" content="#ff5555" />
+<meta name="theme-color" content="#e01f3d" />
 <meta name="description" content="一个会心跳的粒子爱心，纯前端单文件实现，无任何外部依赖。" />
 <title>粒子爱心 · 心跳</title>
 <style>
-  html, body { margin: 0; padding: 0; height: 100%; overflow: hidden; background: #ff5555; }
+  html, body { margin: 0; padding: 0; height: 100%; overflow: hidden; background: #e01f3d; }
   body { -webkit-tap-highlight-color: transparent; }
   #stage { display: block; width: 100%; height: 100%; touch-action: none; cursor: grab; }
   #stage.dragging { cursor: grabbing; }
@@ -35,14 +35,17 @@
     puff:       0.42,    // 心形饱满度：0 是薄片，越大越立体
     spikeMin:   0.012,   // 最短刺长（相对心形半径）
     spikeMax:   0.070,   // 最长刺长
+    spikeBase:  1.03,    // 脉动基准缩放：心跳最弱时的基准尺寸
+    spikeAmp:   0.115,   // 脉动幅度系数：越大起伏越剧烈
+    noiseScale: 2.40,    // 噪声坐标缩放：越大表面波纹越细碎
     distance:   3.00,    // 相机距离：越大心形越小越远
     spin:       0.22,    // 自动旋转速度（弧度/秒）
-    waveSpeed:  0.55,    // 噪声流动速度：心跳波纹的流动感
-    beatRise:   0.62,    // 心跳收缩时长（秒）
-    beatFall:   0.62,    // 心跳回弹时长（秒）
-    beatRest:   0.30,    // 两次心跳之间的停顿（秒）
-    beatPeak:   1.20,    // 心跳峰值强度
-    bg:         '#ff5555' // 背景色，同时也是心形本体色
+    waveSpeed:  0.85,    // 噪声流动速度：心跳波纹的流动感
+    beatRise:   0.36,    // 心跳收缩时长（秒）
+    beatFall:   0.92,    // 心跳回弹时长（秒）
+    beatRest:   0.60,    // 两次心跳之间的停顿（秒）
+    beatPeak:   1.45,    // 心跳峰值强度
+    bg:         '#e01f3d' // 背景色，同时也是心形本体色
   };
 
   /* ==================== 画布 ==================== */
@@ -258,8 +261,8 @@
     for (i = 0; i < used; i++) {
       idx = i * 3;
       var px = P[idx], py = P[idx + 1], pz = P[idx + 2];
-      var nz = noise3(px * 1.5, py * 1.5 + waveT, pz * 1.5) * 2;
-      var s = 1.01 + nz * 0.15 * beat;
+      var nz = noise3(px * CONFIG.noiseScale, py * CONFIG.noiseScale + waveT, pz * CONFIG.noiseScale) * 2;
+      var s = CONFIG.spikeBase + nz * CONFIG.spikeAmp * beat;
 
       var ox = px * s, oy = py * s, oz = pz * s;
       var ln = L[i];
