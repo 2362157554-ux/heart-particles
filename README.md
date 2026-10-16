@@ -4,12 +4,42 @@
 
 红底之上，一万四千条白色粒子刺从心形表面向外生长，随心跳节拍集体收缩与膨胀，像一颗正在跳动的心脏。
 
-## 在线预览
+## 如何使用
 
-打开 `index.html` 即可，不需要任何服务器。
+四种方式，按需选一种。
 
-如果开启了 GitHub Pages，可以直接访问：
-`https://2362157554-ux.github.io/heart-particles/`
+### 一、直接在线打开
+
+访问 <https://2362157554-ux.github.io/heart-particles/>
+
+不用下载、不用安装，打开就能看。适合分享给别人，手机浏览器也能开。
+
+### 二、克隆到本地
+
+```bash
+git clone https://github.com/2362157554-ux/heart-particles.git
+cd heart-particles
+```
+
+然后双击 `index.html`，用浏览器打开即可。不需要安装依赖，不需要启动服务器，不需要联网。
+
+### 三、只取单个文件
+
+整个效果全部在 `index.html` 一个文件里，不含任何外部资源引用。下载这一个文件，丢进任意目录或静态托管都能直接用。
+
+想嵌到自己网页里，用 iframe 即可：
+
+```html
+<iframe src="index.html" style="width:100%;height:100vh;border:0"></iframe>
+```
+
+### 四、下载 ZIP
+
+在仓库页面点绿色的 **Code** 按钮，选 **Download ZIP**，解压后打开 `index.html`。
+
+## 如何改
+
+打开 `index.html`，文件顶部有一个 `CONFIG` 对象，所有手感参数都集中在那里，改完保存、刷新页面即可生效。常用项见下方参数表。
 
 ## 交互
 
